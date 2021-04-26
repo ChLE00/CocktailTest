@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">CocktailTestApp</string>
+
+    <!--Bottom Header-->
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+
+    <!--Fragment Header-->
+    <string name="tv_drink">Drinks Recipes</string>
+    <string name="tv_favorite">Favorite Recipes</string>
+
+    <!--Radio heading-->
+    <string name="tv_name">By Name</string>
+    <string name="tv_alpha">By First Alphabet</string>
+
+    <!--item text-->
+    <string name="tv_item_name">Margarita Glass</string>
+    <string name="tv_item_desc">Place all ingredients in a blen...</string>
+    <string name="tv_alcohol">Alcoholic</string>
+
+</resources>
