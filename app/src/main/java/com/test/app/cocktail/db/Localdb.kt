@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [(FavEntity::class)], version = 2, exportSchema = false)
+@Database(entities = [(FavEntity::class)], version = 1, exportSchema = false)
 abstract class Localdb : RoomDatabase() {
 
     abstract fun fav_DAO(): Fav_DAO
@@ -23,8 +23,8 @@ abstract class Localdb : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     Localdb::class.java,
-                    "fav_database"
-                ).build()
+                    "FavoriteDB"
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return instance
             }

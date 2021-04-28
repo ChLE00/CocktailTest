@@ -1,7 +1,7 @@
 package com.test.app.cocktail.fragments
 
-import FavoriteRecipesAdapter
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.app.cocktail.R
 import com.test.app.cocktail.activities.MainActivity
+import com.test.app.cocktail.adapters.FavoriteRecipesAdapter
 import com.test.app.cocktail.databinding.FragmentFavoriteBinding
 import com.test.app.cocktail.utils.hideKeyboard
 import com.test.app.cocktail.viewModels.FavoriteViewModel
@@ -48,13 +49,15 @@ class FavoriteFragment : Fragment() {
         val recyclerView = binding.rvFavorites
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        binding.loading.visibility = View.VISIBLE
         mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
         mFavoriteViewModel.fetchAllFav.observe(viewLifecycleOwner, Observer { fav ->
             adapter.setData(fav)
+            adapter.notifyDataSetChanged()
+            Handler().postDelayed(Runnable {
+                binding.loading.visibility=View.GONE
+            },3000)
         })
 
-
     }
-
 }

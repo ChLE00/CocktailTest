@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "Favorite_table")
+@Entity(tableName = "FavoriteDB")
 data class FavEntity(
-    @PrimaryKey(autoGenerate = true)
-    val fav_id: Int,
+    //val fav_id: Int,
     // @ColumnInfo (name = "Fav_Name")
+    @PrimaryKey
     val fav_name: String,
     val fav_desc: String,
     val fav_alcohlic: String,

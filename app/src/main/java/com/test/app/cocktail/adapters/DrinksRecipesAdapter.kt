@@ -1,9 +1,13 @@
 package com.test.app.cocktail.adapters
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -20,7 +24,6 @@ import es.dmoral.toasty.Toasty
 class DrinksRecipesAdapter(
     var mContext: Context,
     var data: List<Drink>
-
 
 ) : RecyclerView.Adapter<DrinksRecipesAdapter.ViewHolder>() {
 
@@ -58,7 +61,6 @@ class DrinksRecipesAdapter(
                         val alcholic = data[adapterPosition].strAlcoholic
                         val thumb = data[adapterPosition].strDrinkThumb
                         val fav = FavEntity(
-                            0,
                             drinkName,
                             instruction,
                             alcholic,
@@ -68,13 +70,13 @@ class DrinksRecipesAdapter(
                         Handler(Looper.getMainLooper()).post {
                             Toasty.success(
                                 mContext,
-                                "Drink Successfully Save in Favorites!",
-                                Toast.LENGTH_LONG
+                                "Drink Successfully Saved in Favorites!",
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
 
                     }.start()
-                }else{
+                } else {
                     binding.imgFav.setChecked(false)
                     Thread {
                         val drinkName = data[adapterPosition].strDrink
@@ -82,19 +84,17 @@ class DrinksRecipesAdapter(
                         val alcholic = data[adapterPosition].strAlcoholic
                         val thumb = data[adapterPosition].strDrinkThumb
                         val fav = FavEntity(
-                            0,
                             drinkName,
                             instruction,
                             alcholic,
                             thumb
                         )
                         db.fav_DAO().deleteFav(fav)
-
                         Handler(Looper.getMainLooper()).post {
                             Toasty.success(
                                 mContext,
-                                "Drink Successfully Delete From Favorites!",
-                                Toast.LENGTH_LONG
+                                "Drink Successfully Deleted From Favorites!",
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
                     }.start()
@@ -118,6 +118,11 @@ class DrinksRecipesAdapter(
 
     override fun onBindViewHolder(holder: DrinksRecipesAdapter.ViewHolder, p1: Int) {
         holder.bind(mContext, data)
+    }
+
+    fun filterList(filteredDrinks: ArrayList<Drink>) {
+        this.data = filteredDrinks
+        notifyDataSetChanged()
     }
 
 }
